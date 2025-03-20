@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head Section -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScriptScribe</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Caveat&family=Gloria+Hallelujah&family=Homemade+Apple&family=Indie+Flower&family=Patrick+Hand&family=Roboto&family=Satisfy&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <!-- Add icon link -->
+    <link rel="icon" href="assets/icon.png" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="ScriptScribe Logo">
+                <h1>ScriptScribe : Text to Handwriting Converter</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Input Section -->
+        <section class="section input-section">
+            <h2>Enter Your Text</h2>
+            <textarea id="input-text" placeholder="Type or paste your text here..."></textarea>
+        </section>
+
+        <!-- Controls Section -->
+        <section class="section">
+            <h2>Customize Your Handwriting</h2>
+            <!-- Font Selector -->
+            <div class="control-group font-selector">
+                <label>Select Handwriting Style:</label>
+                <div class="font-options">
+                    <!-- Font Buttons -->
+                    <button class="font-button active" data-font="'Caveat', cursive" style="font-family: 'Caveat', cursive;">Caveat</button>
+                    <button class="font-button" data-font="'Homemade Apple', cursive" style="font-family: 'Homemade Apple', cursive;">Homemade Apple</button>
+                    <button class="font-button" data-font="'Indie Flower', cursive" style="font-family: 'Indie Flower', cursive;">Indie Flower</button>
+                    <button class="font-button" data-font="'Satisfy', cursive" style="font-family: 'Satisfy', cursive;">Satisfy</button>
+                    <button class="font-button" data-font="'Shadows Into Light', cursive" style="font-family: 'Shadows Into Light', cursive;">Shadows Into Light</button>
+                    <button class="font-button" data-font="'Patrick Hand', cursive" style="font-family: 'Patrick Hand', cursive;">Patrick Hand</button>
+                    <button class="font-button" data-font="'Amatic SC', cursive" style="font-family: 'Amatic SC', cursive;">Amatic SC</button>
+                    <button class="font-button" data-font="'Gloria Hallelujah', cursive" style="font-family: 'Gloria Hallelujah', cursive;">Gloria Hallelujah</button>
+                </div>
+            </div>
+            <!-- Custom Font Upload -->
+            <div class="control-group">
+                <label for="font-upload">Upload Custom Handwriting Font:</label>
+                <input type="file" id="font-upload" accept=".ttf,.otf">
+            </div>
+            <!-- Other Controls -->
+            <div class="controls-section">
+                <!-- Text Color Control -->
+                <div class="control-group">
+                    <label for="text-color">Text Color:</label>
+                    <input type="color" id="text-color" value="#000000">
+                </div>
+                <!-- Font Size Control -->
+                <div class="control-group">
+                    <label for="font-size">Font Size (px):</label>
+                    <input type="range" id="font-size" min="16" max="72" value="24">
+                    <span id="font-size-value">24px</span>
+                </div>
+                <!-- Line Spacing Control -->
+                <div class="control-group">
+                    <label for="line-spacing">Line Spacing:</label>
+                    <input type="range" id="line-spacing" min="1" max="3" step="0.1" value="1.8">
+                    <span id="line-spacing-value">1.8</span>
+                </div>
+                <!-- Word Spacing Control -->
+                <div class="control-group">
+                    <label for="word-spacing">Word Spacing (px):</label>
+                    <input type="range" id="word-spacing" min="0" max="20" value="0">
+                    <span id="word-spacing-value">0px</span>
+                </div>
+                <!-- Background Options -->
+                <div class="control-group">
+                    <label>Background Options:</label>
+                    <div class="background-options">
+                        <!-- Background Samples -->
+                        <div class="background-option active" data-background="white" style="background-color: #ffffff;"></div>
+                        <div class="background-option" data-background="lined" style="background-image: url('lined.png');"></div>
+                        <div class="background-option" data-background="grid" style="background-image: url('grid.png');"></div>
+                    </div>
+                    <label for="background-color-picker">Or Choose Background Color:</label>
+                    <input type="color" id="background-color-picker" value="#ffffff">
+                </div>
+                <!-- Template Selector -->
+                <div class="control-group">
+                    <label for="template-selector">Choose a Template:</label>
+                    <select id="template-selector">
+                        <option value="">Select Template</option>
+                        <option value="thankYouNote">Thank You Note</option>
+                        <option value="businessLetter">Business Letter</option>
+                        <option value="invitation">Invitation</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formatting Toolbar -->
+        <section class="section">
+            <h2>Formatting Tools</h2>
+            <div class="formatting-toolbar">
+                <button class="format-button" data-command="bold" title="Bold"><i class="fas fa-bold"></i></button>
+                <button class="format-button" data-command="italic" title="Italic"><i class="fas fa-italic"></i></button>
+                <button class="format-button" data-command="underline" title="Underline"><i class="fas fa-underline"></i></button>
+                <button class="format-button" data-command="strikethrough" title="Strikethrough"><i class="fas fa-strikethrough"></i></button>
+                <button class="format-button" data-command="hiliteColor" data-value="yellow" title="Highlight"><i class="fas fa-highlighter"></i></button>
+                <button class="format-button" data-command="insertUnorderedList" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                <button class="format-button" data-command="justifyLeft" title="Align Left"><i class="fas fa-align-left"></i></button>
+                <button class="format-button" data-command="justifyCenter" title="Align Center"><i class="fas fa-align-center"></i></button>
+                <button class="format-button" data-command="justifyRight" title="Align Right"><i class="fas fa-align-right"></i></button>
+                <button class="format-button" data-command="justifyFull" title="Justify"><i class="fas fa-align-justify"></i></button>
+                <button class="format-button" data-command="removeFormat" title="Clear Formatting"><i class="fas fa-eraser"></i></button>
+            </div>
+        </section>
+
+        <!-- Preview Section -->
+        <section class="section">
+            <h2>Preview</h2>
+            
+            <div class="preview-container">
+                <div class="preview" id="preview" contenteditable="true">Your handwritten text will appear here</div>
+            </div>
+        </section>
+
+        <!-- Download Options -->
+        <section class="section">
+            <h2>Download Your Work</h2>
+            <div class="download-options">
+                <button class="download-button" id="download-pdf"><i class="fas fa-file-pdf"></i> Download PDF</button>
+                <button class="download-button" id="download-image"><i class="fas fa-image"></i> Download Image</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>ScriptScribe</h3>
+                    <p>Transform your digital text into personalized handwriting</p>
+                </div>
+                
+                
+                
+                <div class="social-icons">
+                    
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 ScriptScribe. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+    </html>
