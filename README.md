@@ -1,8 +1,8 @@
 # ScriptScribe: Text to Handwriting Converter
 
-![](preview.png)
+![](assets/preview.png)
 
-🔗 **Live Demo**: [🌐](https://amankumarcodes.github.io/ScriptScribe/)
+🔗 **Live Demo**: [Try Now](https://amankumarcodes.github.io/ScriptScribe/)
 
 ## 📝 Overview
 
